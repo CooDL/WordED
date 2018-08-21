@@ -1,0 +1,105 @@
+{% block body %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Embed</title>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery-1.8.2.min.js')}}"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='jumbotron-narrow.css') }}" type="text/css" />
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css" /> -->
+    <script type="text/javascript" src="{{ url_for('static', filename='bind_data.js')}}"></script>
+
+</head>
+<body>
+
+
+<!-- form  action="/forecast/" method="post" -->
+
+<!-- Nav -->
+
+<div class="container" style="height:900px">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-left">
+            <li role="presentation"><a href="http://127.0.0.1:5200/wed">Near_Analysis</a></li>
+            <li role="presentation" class="active"><a href="http://127.0.0.1:5200/weds">Between_Analysis</a></li>
+          </ul>
+        </nav>
+        <!-- <h3 class="text-muted">CisDem</h3> -->
+      </div>
+
+
+<!-- Body -->
+
+<!-- Input -->
+<h3>Input Details:</h3>
+<form action="/weds" method="post">
+    <dl>
+        <tr></tr>
+      <dt>Keywords:&nbsp&nbsp<d><font style='background-color: cyan;'>&nbsp{{keyword1}}&nbsp</font></d>&nbsp&nbsp<d><font style='background-color: cyan;'>&nbsp{{keyword2}}&nbsp</font></d><br>Top-K words:&nbsp&nbsp<d><font color='white', style='background-color: green;'>&nbsp{{top_k}}&nbsp</font></d>
+      <br>Step-K:&nbsp&nbsp<d><font color='white', style='background-color: green;'>&nbsp{{step_k}}&nbsp</font></d>
+      </a>
+    </dl>
+</form>
+<br>
+<!-- List 1-->
+<h3>Similar Words Details:</h3>
+<div class="table-responsive" style="max-height:200px;overflow: hidden; margin: 0; overflow:auto;">
+    <table class="table table-striped" id="table1">
+        <tbody class="table-slide" id="table-slide">
+            <tr><th>No.</th><th>Word1</th><th>Similarity1</th><th>Word2</th><th>Similarity2</th></tr>
+            <ul class="entries">
+            {% for idx, entry1, entry2 in entries %}
+            <tr><td>{{idx}}</td><td>{{entry1[0]}}</td><td>{{entry1[1]}}</td><td>{{entry2[0]}}</td><td>{{entry2[1]}}</td></tr>
+            {% endfor %}
+            </ul>
+            <!-- &nbsp&nbsp&nbsp -->
+        </tbody>
+    </table>
+</div>
+
+<br>
+<!-- List 2-->
+<h3>Between Words Details:</h3><p>new_vector = vector[word1] + x * (vector[word2] - vector[word1])</p>
+<div class="table-responsive" style="max-height:200px;overflow: hidden; margin: 0; overflow:auto;">
+    <table class="table table-striped" id="table1">
+        <tbody class="table-slide" id="table-slide">
+            <tr><th>No.</th><th>x-value</th><th>Word</th><th>Similarity to new vector</th></tr>
+            <ul class="betweens">
+            {% for idx, entry in betweens %}
+            <tr><td>{{idx}}</td><td>{{entry[0]}}</td><td>{{entry[1][0]}}</td><td>{{entry[1][1]}}</td></tr>
+            {% endfor %}
+            </ul>
+        </tbody>
+    </table>
+</div>
+
+<h3>TSNE Graphs</h3>
+<h4><font color='white', style='background-color: red;'>2D:</font></h4>
+<div align=center>
+    <p>
+    <dd><h4>Fig for Near Words:</h4></dd>
+    <img src="images/{{figsname}}" height="600" width="600" />
+    <dd><h4>Fig for Between Words:</h4></dd>
+    <img src="images/{{figname1}}" height="600" width="600" />
+    </p>
+</div>
+<h4><font color='white', style='background-color: red;'>3D:</font></h4>
+<div align=center>
+    <p>
+    <dd><h4>Fig for Near Words:</h4></dd>
+    <img src="images/{{fig3sname}}" height="600" width="1000" />
+    <dd><h4>Fig for Between Words:</h4></dd>
+    <img src="images/{{figname2}}" height="600" width="1000" />
+    </p>
+</div>
+
+</body>
+
+</html>
+{% endblock %}

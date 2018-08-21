@@ -1,0 +1,52 @@
+{% block body %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Embed</title>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery-1.8.2.min.js')}}"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+	
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='jumbotron-narrow.css') }}" type="text/css" />
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css" /> -->
+    <script type="text/javascript" src="{{ url_for('static', filename='bind_data.js')}}"></script>
+
+</head>
+<body>
+
+
+<!-- form  action="/forecast/" method="post" -->
+
+<!-- Nav -->
+
+<div class="container" style="height:900px">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-left">
+            <li role="presentation" class="active"><a href="http://127.0.0.1:5200/wed">Near_Analysis</a></li>
+            <li role="presentation" class="active"><a href="http://127.0.0.1:5200/weds">Between_Analysis</a></li>
+          </ul>
+        </nav>
+        <!-- <h3 class="text-muted">CisDem</h3> -->
+      </div>
+
+
+<!-- Body -->
+
+<!-- Input -->
+<h3>Input word</h3>
+<form action="/wed" method="post">
+    <dl>
+      <dt>Keyword:&nbsp&nbsp<input type="text" name="keyword" size="20" placeholder='keyword' autocomplete="on" >&nbsp&nbspTop-K:&nbsp&nbsp<input type="text" name="top_k" value=10 size='20' autocomplete="on"><a class="actions"><input type="submit" value="Find Near"></a>
+    </dl>
+</form>
+
+
+
+</body>
+
+</html>
+{% endblock %}
